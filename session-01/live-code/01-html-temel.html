@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Temel Yapı</title>
+  </head>
+  <body>
+
+    <!-- =============================================
+         ADIM 1: HTML nedir? Tarayıcı ne yapar?
+         - Bu dosyayı tarayıcıda açıyoruz
+         - Sağ tıkla > "Sayfa Kaynağını Görüntüle"
+         - DevTools > Elements sekmesi
+    ============================================= -->
+
+    <!-- =============================================
+         ADIM 2: Başlıklar (Heading) — h1'den h6'ya
+         Neden önemli? SEO + Ekran okuyucular
+    ============================================= -->
+    <h1>Ana Başlık — Sayfada yalnızca 1 tane olmalı</h1>
+    <h2>Alt Başlık</h2>
+    <h3>Daha Küçük Başlık</h3>
+
+    <!-- =============================================
+         ADIM 3: Paragraf ve metin elementleri
+    ============================================= -->
+    <p>
+      Bu bir paragraftır. Web'deki metinlerin büyük çoğunluğu
+      <strong>paragraf</strong> elementi içinde yer alır.
+      <em>İtalik metin</em> için em kullanırız.
+    </p>
+
+    <p>
+      İki paragraf arasında otomatik boşluk vardır.
+      HTML'de birden fazla boşluk ve enter tarayıcı tarafından
+      tek boşluğa indirgenir.
+    </p>
+
+    <!-- =============================================
+         ADIM 4: Semantic HTML — neden önemli?
+         div vs semantic elementler
+    ============================================= -->
+
+    <!-- Semantic OLMAYAN yapı (kötü örnek — canlıda göster):
+    <div class="header">...</div>
+    <div class="nav">...</div>
+    <div class="main">...</div>
+    <div class="footer">...</div>
+    -->
+
+    <!-- Semantic OLAN yapı (iyi örnek): -->
+    <header>
+      <h1>Blog Sitem</h1>
+      <nav>
+        <a href="#">Ana Sayfa</a>
+        <a href="#">Hakkımda</a>
+        <a href="#">İletişim</a>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <h2>İlk Blog Yazım</h2>
+        <p>
+          Semantic HTML, sayfanın <em>ne anlama geldiğini</em> tarayıcıya
+          ve arama motorlarına söyler.
+        </p>
+
+        <!-- Liste örneği -->
+        <h3>Semantic Elementler</h3>
+        <ul>
+          <li>header — sayfa başlığı</li>
+          <li>nav — navigasyon</li>
+          <li>main — ana içerik</li>
+          <li>article — bağımsız içerik</li>
+          <li>section — tematik grup</li>
+          <li>footer — sayfa altlığı</li>
+        </ul>
+
+        <!-- Sıralı liste -->
+        <h3>HTML Öğrenme Sırası</h3>
+        <ol>
+          <li>HTML yapısını öğren</li>
+          <li>CSS ile stil ver</li>
+          <li>JavaScript ile dinamik yap</li>
+        </ol>
+      </article>
+
+      <!-- =============================================
+           ADIM 5: Linkler ve Görseller
+      ============================================= -->
+      <section>
+        <h2>Link ve Görsel</h2>
+
+        <!-- href=\"#\" = şu an için boş link -->
+        <a href="https://developer.mozilla.org" target="_blank">
+          MDN Web Docs'a git (yeni sekmede açılır)
+        </a>
+
+        <!-- img: src + alt zorunlu -->
+        <br /><br />
+        <img
+          src="https://via.placeholder.com/300x150"
+          alt="Örnek görsel açıklaması — ekran okuyucular bunu okur"
+          width="300"
+        />
+      </section>
+
+      <!-- =============================================
+           ADIM 6: Form Elementleri — input, button
+           (Session 1'in önemli parçası)
+      ============================================= -->
+      <section>
+        <h2>Form Elementleri</h2>
+
+        <form>
+          <!-- label + input birlikte kullanılmalı -->
+          <label for="isim">İsim:</label>
+          <input
+            type="text"
+            id="isim"
+            name="isim"
+            placeholder="Adınızı girin"
+          />
+
+          <br /><br />
+
+          <label for="email">E-posta:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="ornek@mail.com"
+          />
+
+          <br /><br />
+
+          <label for="sifre">Şifre:</label>
+          <input
+            type="password"
+            id="sifre"
+            name="sifre"
+          />
+
+          <br /><br />
+
+          <!-- input type="number" -->
+          <label for="yas">Yaş:</label>
+          <input type="number" id="yas" name="yas" min="0" max="120" />
+
+          <br /><br />
+
+          <!-- select dropdown -->
+          <label for="sehir">Şehir:</label>
+          <select id="sehir" name="sehir">
+            <option value="">Seçiniz...</option>
+            <option value="ist">İstanbul</option>
+            <option value="ank">Ankara</option>
+            <option value="izm">İzmir</option>
+          </select>
+
+          <br /><br />
+
+          <!-- textarea -->
+          <label for="mesaj">Mesaj:</label>
+          <br />
+          <textarea id="mesaj" name="mesaj" rows="4" cols="40"
+            placeholder="Mesajınızı buraya yazın..."></textarea>
+
+          <br /><br />
+
+          <!-- checkbox -->
+          <input type="checkbox" id="kvkk" name="kvkk" />
+          <label for="kvkk">KVKK metnini okudum ve onaylıyorum</label>
+
+          <br /><br />
+
+          <!-- Butonlar -->
+          <button type="submit">Formu Gönder</button>
+          <button type="reset">Temizle</button>
+          <button type="button">Sadece Tıklanabilir Buton</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 — HTML Temelleri Canlı Demo</p>
+    </footer>
+
+  </body>
+</html>

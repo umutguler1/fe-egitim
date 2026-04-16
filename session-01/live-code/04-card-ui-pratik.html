@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pratik — Card UI</title>
+
+    <!--
+      =============================================
+      SESSION 1 PRATİK (70–90. dakika)
+
+      HEDEF: Katılımcılar bu dosyayı sıfırdan yazar.
+      Eğitimci canlı kodlarken katılımcılar takip eder.
+
+      ADIMLAR:
+      1. HTML iskeleti kur
+      2. Tek bir card yaz
+      3. CSS ile box model & görsel
+      4. Flex ile 3 card yan yana diz
+      5. Responsive wrap ekle (bonus)
+      =============================================
+    -->
+
+    <style>
+
+      /* ---- SIFIRLA ---- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* ---- SAYFA ---- */
+      body {
+        font-family: sans-serif;
+        background-color: #f3f4f6;
+        padding: 40px 24px;
+        color: #1f2937;
+      }
+
+      /* ---- SAYFA BAŞLIĞI ---- */
+      .page-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .page-header h1 {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+
+      .page-header p {
+        color: #6b7280;
+        font-size: 15px;
+      }
+
+      /* ---- CARD GRID ---- */
+      /*
+        ADIM 4: Flex ile card'ları yan yana diz.
+        justify-content: center → ortaya al
+        gap → aralarında boşluk
+        flex-wrap: wrap → küçük ekranda alta taşısın
+      */
+      .card-grid {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      /* ---- CARD ---- */
+      /*
+        ADIM 2–3: Tek card tasarımı.
+        Önce sadece içeriği yaz, sonra stil ver.
+      */
+      .card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;          /* Resim köşelere taşmasın */
+        width: 280px;
+
+        /* Gölge — depth hissi */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+        /* Hover animasyonu (bonus) */
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      /* ---- CARD — GÖRSEL ALAN ---- */
+      .card-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;   /* Resim oranını koruyarak alanı doldursun */
+      }
+
+      /* ---- CARD — İÇERİK ---- */
+      .card-body {
+        padding: 20px;
+      }
+
+      .card-tag {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #3b82f6;
+        background-color: #eff6ff;
+        padding: 3px 10px;
+        border-radius: 999px;
+        margin-bottom: 10px;
+      }
+
+      .card-title {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+
+      .card-description {
+        font-size: 14px;
+        color: #6b7280;
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+
+      /* ---- CARD — ALT KISIM ---- */
+      /*
+        ADIM: space-between ile yazar bilgisi ve buton karşılıklı.
+        align-items: center ile dikey ortalama.
+      */
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #f3f4f6;
+        padding-top: 14px;
+        margin-top: 4px;
+      }
+
+      .card-author {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .card-author-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: #d1d5db;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .card-author-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .card-author-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #374151;
+      }
+
+      .card-author-date {
+        font-size: 11px;
+        color: #9ca3af;
+      }
+
+      /* ---- BUTON ---- */
+      .btn {
+        display: inline-block;
+        padding: 7px 16px;
+        background-color: #3b82f6;
+        color: white;
+        font-size: 13px;
+        font-weight: 600;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.15s;
+      }
+
+      .btn:hover {
+        background-color: #2563eb;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <!-- ---- SAYFA BAŞLIĞI ---- -->
+    <header class="page-header">
+      <h1>Günün Haberleri</h1>
+      <p>HTML ve CSS ile hazırlanmış card layout örneği</p>
+    </header>
+
+    <!-- ---- CARD GRID ---- -->
+    <main class="card-grid">
+
+      <!-- CARD 1 -->
+      <article class="card">
+        <img
+          class="card-image"
+          src="https://picsum.photos/seed/tech/600/400"
+          alt="Teknoloji haberi görseli"
+        />
+        <div class="card-body">
+          <span class="card-tag">Teknoloji</span>
+          <h2 class="card-title">Yapay Zeka ve Yazılım Geliştirme</h2>
+          <p class="card-description">
+            Modern yazılım geliştirme dünyasında yapay zekanın rolü her geçen gün
+            artıyor. Peki bu araçları nasıl doğru kullanabiliriz?
+          </p>
+          <div class="card-footer">
+            <div class="card-author">
+              <div class="card-author-avatar">
+                <img src="https://i.pravatar.cc/64?img=1" alt="Yazar avatarı" />
+              </div>
+              <div>
+                <div class="card-author-name">Ahmet Yılmaz</div>
+                <div class="card-author-date">14 Nisan 2026</div>
+              </div>
+            </div>
+            <a href="#" class="btn">Oku</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 2 -->
+      <article class="card">
+        <img
+          class="card-image"
+          src="https://picsum.photos/seed/design/600/400"
+          alt="Tasarım haberi görseli"
+        />
+        <div class="card-body">
+          <span class="card-tag" style="color: #10b981; background-color: #ecfdf5;">Tasarım</span>
+          <h2 class="card-title">2026'nın Öne Çıkan UI Trendleri</h2>
+          <p class="card-description">
+            Bu yıl kullanıcı arayüzü tasarımında minimal yaklaşımlar ve
+            mikro animasyonlar ön plana çıkıyor.
+          </p>
+          <div class="card-footer">
+            <div class="card-author">
+              <div class="card-author-avatar">
+                <img src="https://i.pravatar.cc/64?img=5" alt="Yazar avatarı" />
+              </div>
+              <div>
+                <div class="card-author-name">Elif Kaya</div>
+                <div class="card-author-date">12 Nisan 2026</div>
+              </div>
+            </div>
+            <a href="#" class="btn" style="background-color: #10b981;">Oku</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 3 -->
+      <article class="card">
+        <img
+          class="card-image"
+          src="https://picsum.photos/seed/frontend/600/400"
+          alt="Frontend haberi görseli"
+        />
+        <div class="card-body">
+          <span class="card-tag" style="color: #f59e0b; background-color: #fffbeb;">Frontend</span>
+          <h2 class="card-title">CSS Flexbox ile Hızlı Layout</h2>
+          <p class="card-description">
+            Flexbox, modern web tasarımının temel taşlarından biridir.
+            Bu rehberde temel özellikleri öğreniyoruz.
+          </p>
+          <div class="card-footer">
+            <div class="card-author">
+              <div class="card-author-avatar">
+                <img src="https://i.pravatar.cc/64?img=8" alt="Yazar avatarı" />
+              </div>
+              <div>
+                <div class="card-author-name">Mert Demir</div>
+                <div class="card-author-date">10 Nisan 2026</div>
+              </div>
+            </div>
+            <a href="#" class="btn" style="background-color: #f59e0b;">Oku</a>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+  </body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Flexbox</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: sans-serif;
+        background-color: #f0f0f0;
+        padding: 32px;
+        color: #333;
+      }
+
+      h2 {
+        margin-bottom: 12px;
+        font-size: 18px;
+        border-bottom: 2px solid #333;
+        padding-bottom: 4px;
+      }
+
+      p.aciklama {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 12px;
+        background: #fffbe6;
+        padding: 8px;
+        border-left: 3px solid #f0a500;
+      }
+
+      .section {
+        margin-bottom: 48px;
+      }
+
+      /* Her flex container için ortak stiller */
+      .flex-container {
+        background-color: #dce8ff;
+        border: 2px dashed #5080cc;
+        padding: 8px;
+        /* height bazı örneklerde açıkça verilecek */
+      }
+
+      /* Her flex item için ortak stiller */
+      .item {
+        background-color: #4a90d9;
+        color: white;
+        font-weight: bold;
+        padding: 16px 20px;
+        margin: 4px;
+        border-radius: 4px;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .item-1 { background-color: #e05a38; }
+      .item-2 { background-color: #4a90d9; }
+      .item-3 { background-color: #6aaa00; }
+      .item-4 { background-color: #9b59b6; }
+      .item-5 { background-color: #f0a500; }
+
+      /* =============================================
+         ADIM 1: display: flex — temel
+         Flex container ve flex item kavramı
+      ============================================= */
+      .flex-baslangic {
+        display: flex; /* BU SATIRI AÇIP KAPAYARAK GÖSTER */
+      }
+
+      /* =============================================
+         ADIM 2: flex-direction
+         Yön: row (varsayılan) veya column
+      ============================================= */
+      .flex-row {
+        display: flex;
+        flex-direction: row;       /* varsayılan — soldan sağa */
+      }
+
+      .flex-column {
+        display: flex;
+        flex-direction: column;    /* yukarıdan aşağıya */
+      }
+
+      /* =============================================
+         ADIM 3: justify-content
+         Ana eksen boyunca hizalama (row'da: yatay)
+      ============================================= */
+      .jc-flex-start {
+        display: flex;
+        justify-content: flex-start;   /* varsayılan — sola */
+      }
+
+      .jc-flex-end {
+        display: flex;
+        justify-content: flex-end;     /* sağa */
+      }
+
+      .jc-center {
+        display: flex;
+        justify-content: center;       /* ortaya */
+      }
+
+      .jc-space-between {
+        display: flex;
+        justify-content: space-between; /* aralarında eşit boşluk */
+      }
+
+      .jc-space-around {
+        display: flex;
+        justify-content: space-around;  /* çevresinde eşit boşluk */
+      }
+
+      .jc-space-evenly {
+        display: flex;
+        justify-content: space-evenly;  /* tamamen eşit dağılım */
+      }
+
+      /* =============================================
+         ADIM 4: align-items
+         Çapraz eksen boyunca hizalama (row'da: dikey)
+         Görmek için container'a yükseklik gerekir
+      ============================================= */
+      .ai-container {
+        display: flex;
+        height: 120px;              /* yükseklik olmazsa fark anlaşılmaz */
+        justify-content: center;
+        background-color: #dce8ff;
+        border: 2px dashed #5080cc;
+        padding: 8px;
+        margin-bottom: 8px;
+      }
+
+      .ai-stretch     { align-items: stretch; }    /* varsayılan — boyutu kaplar */
+      .ai-flex-start  { align-items: flex-start; } /* üste yapışır */
+      .ai-flex-end    { align-items: flex-end; }   /* alta yapışır */
+      .ai-center      { align-items: center; }     /* ortaya */
+
+      /* =============================================
+         ADIM 5: flex-wrap
+         Öğeler satıra sığmazsa ne olsun?
+      ============================================= */
+      .flex-nowrap {
+        display: flex;
+        flex-wrap: nowrap;   /* varsayılan — sıkışır */
+      }
+
+      .flex-wrap {
+        display: flex;
+        flex-wrap: wrap;     /* sığmazsa alt satıra geçer */
+      }
+
+      /* =============================================
+         ADIM 6: gap
+         Flex itemlar arasındaki boşluk
+      ============================================= */
+      .flex-gap {
+        display: flex;
+        gap: 16px;           /* tüm yönlerde 16px boşluk */
+      }
+
+      /* =============================================
+         ADIM 7: flex — item özelliği
+         flex-grow: boş alanı kapla
+         flex-shrink: sıkışınca küçül
+         flex-basis: başlangıç boyutu
+      ============================================= */
+      .flex-grow-demo {
+        display: flex;
+        gap: 8px;
+      }
+
+      .grow-1 { flex: 1; }  /* flex: 1 = flex-grow:1, flex-shrink:1, flex-basis:0 */
+      .grow-2 { flex: 2; }  /* 2 kat daha geniş */
+      .grow-3 { flex: 3; }
+
+      /* =============================================
+         ADIM 8: Gerçek hayat — ortada bir element
+         En sık kullanılan pattern: her iki eksende ortalama
+      ============================================= */
+      .tam-ortada {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 150px;
+        background-color: #2c2c2c;
+        border-radius: 8px;
+      }
+
+      .tam-ortada .kart {
+        background: white;
+        padding: 20px 32px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <!-- =============================================
+         ADIM 1: display: flex temel
+    ============================================= -->
+    <div class="section">
+      <h2>1. display: flex — Flex container ve flex item</h2>
+      <p class="aciklama">
+        display: flex olan element "flex container", içindeki doğrudan çocuklar "flex item" olur.
+        Bu satırı CSS'te yorum satırına alıp farklılığı göster.
+      </p>
+
+      <p style="font-size:13px; margin-bottom:6px;">display: flex <strong>olmadan</strong> (block):</p>
+      <div style="background:#dce8ff; border: 2px dashed #5080cc; padding:8px; margin-bottom:16px;">
+        <div class="item item-1">Item 1</div>
+        <div class="item item-2">Item 2</div>
+        <div class="item item-3">Item 3</div>
+      </div>
+
+      <p style="font-size:13px; margin-bottom:6px;">display: flex <strong>ile</strong>:</p>
+      <div class="flex-container flex-baslangic">
+        <div class="item item-1">Item 1</div>
+        <div class="item item-2">Item 2</div>
+        <div class="item item-3">Item 3</div>
+      </div>
+    </div>
+
+    <!-- =============================================
+         ADIM 2: flex-direction
+    ============================================= -->
+    <div class="section">
+      <h2>2. flex-direction: row / column</h2>
+      <p class="aciklama">
+        row = soldan sağa (varsayılan) — column = yukarıdan aşağıya
+      </p>
+
+      <p style="font-size:13px; margin-bottom:6px;"><code>flex-direction: row</code></p>
+      <div class="flex-container flex-row" style="margin-bottom: 16px;">
+        <div class="item item-1">A</div>
+        <div class="item item-2">B</div>
+        <div class="item item-3">C</div>
+      </div>
+
+      <p style="font-size:13px; margin-bottom:6px;"><code>flex-direction: column</code></p>
+      <div class="flex-container flex-column">
+        <div class="item item-1">A</div>
+        <div class="item item-2">B</div>
+        <div class="item item-3">C</div>
+      </div>
+    </div>
+
+    <!-- =============================================
+         ADIM 3: justify-content
+    ============================================= -->
+    <div class="section">
+      <h2>3. justify-content — Ana eksende hizalama</h2>
+      <p class="aciklama">
+        flex-direction: row iken bu özellik YATAY hizalamayı kontrol eder.
+      </p>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>justify-content: flex-start</code> (varsayılan)</p>
+      <div class="flex-container jc-flex-start" style="margin-bottom:10px;">
+        <div class="item item-1">1</div><div class="item item-2">2</div><div class="item item-3">3</div>
+      </div>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>justify-content: center</code></p>
+      <div class="flex-container jc-center" style="margin-bottom:10px;">
+        <div class="item item-1">1</div><div class="item item-2">2</div><div class="item item-3">3</div>
+      </div>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>justify-content: flex-end</code></p>
+      <div class="flex-container jc-flex-end" style="margin-bottom:10px;">
+        <div class="item item-1">1</div><div class="item item-2">2</div><div class="item item-3">3</div>
+      </div>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>justify-content: space-between</code></p>
+      <div class="flex-container jc-space-between" style="margin-bottom:10px;">
+        <div class="item item-1">1</div><div class="item item-2">2</div><div class="item item-3">3</div>
+      </div>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>justify-content: space-around</code></p>
+      <div class="flex-container jc-space-around" style="margin-bottom:10px;">
+        <div class="item item-1">1</div><div class="item item-2">2</div><div class="item item-3">3</div>
+      </div>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>justify-content: space-evenly</code></p>
+      <div class="flex-container jc-space-evenly">
+        <div class="item item-1">1</div><div class="item item-2">2</div><div class="item item-3">3</div>
+      </div>
+    </div>
+
+    <!-- =============================================
+         ADIM 4: align-items
+    ============================================= -->
+    <div class="section">
+      <h2>4. align-items — Çapraz eksende hizalama (dikey)</h2>
+      <p class="aciklama">
+        align-items çalışması için container'ın yüksekliği olmalı. Burada height: 120px verildi.
+      </p>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>align-items: stretch</code> (varsayılan — itemlar container yüksekliğini kaplar)</p>
+      <div class="ai-container ai-stretch" style="margin-bottom:10px;">
+        <div class="item item-1">1</div><div class="item item-2">2</div><div class="item item-3">3</div>
+      </div>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>align-items: flex-start</code></p>
+      <div class="ai-container ai-flex-start" style="margin-bottom:10px;">
+        <div class="item item-1">1</div><div class="item item-2">2</div><div class="item item-3">3</div>
+      </div>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>align-items: center</code></p>
+      <div class="ai-container ai-center" style="margin-bottom:10px;">
+        <div class="item item-1">1</div><div class="item item-2">2</div><div class="item item-3">3</div>
+      </div>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>align-items: flex-end</code></p>
+      <div class="ai-container ai-flex-end">
+        <div class="item item-1">1</div><div class="item item-2">2</div><div class="item item-3">3</div>
+      </div>
+    </div>
+
+    <!-- =============================================
+         ADIM 5: flex-wrap
+    ============================================= -->
+    <div class="section">
+      <h2>5. flex-wrap — Taşınca ne olsun?</h2>
+      <p class="aciklama">
+        Çok fazla item varsa ve container'a sığmıyorsa — nowrap sıkıştırır, wrap alt satıra taşır.
+      </p>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>flex-wrap: nowrap</code> (varsayılan — sıkışır)</p>
+      <div class="flex-container flex-nowrap" style="margin-bottom:16px;">
+        <div class="item item-1">Item 1</div>
+        <div class="item item-2">Item 2</div>
+        <div class="item item-3">Item 3</div>
+        <div class="item item-4">Item 4</div>
+        <div class="item item-5">Item 5</div>
+        <div class="item item-1">Item 6</div>
+        <div class="item item-2">Item 7</div>
+      </div>
+
+      <p style="font-size:13px; margin-bottom:4px;"><code>flex-wrap: wrap</code> (alt satıra geçer)</p>
+      <div class="flex-container flex-wrap">
+        <div class="item item-1">Item 1</div>
+        <div class="item item-2">Item 2</div>
+        <div class="item item-3">Item 3</div>
+        <div class="item item-4">Item 4</div>
+        <div class="item item-5">Item 5</div>
+        <div class="item item-1">Item 6</div>
+        <div class="item item-2">Item 7</div>
+      </div>
+    </div>
+
+    <!-- =============================================
+         ADIM 6: gap
+    ============================================= -->
+    <div class="section">
+      <h2>6. gap — Boşluklar</h2>
+      <p class="aciklama">
+        margin yerine gap kullanmak daha temiz. Container özelliğidir.
+      </p>
+
+      <div class="flex-container flex-gap">
+        <div class="item item-1">Item 1</div>
+        <div class="item item-2">Item 2</div>
+        <div class="item item-3">Item 3</div>
+        <div class="item item-4">Item 4</div>
+      </div>
+    </div>
+
+    <!-- =============================================
+         ADIM 7: flex (item özelliği)
+    ============================================= -->
+    <div class="section">
+      <h2>7. flex — Item'ın büyüme payı</h2>
+      <p class="aciklama">
+        flex: 1, flex: 2 gibi değerler itemların oransal büyümesini belirler.
+        Toplam 1+2+3=6 birim; item-1 boşluğun 1/6'sını, item-2 2/6'sını, item-3 3/6'sını alır.
+      </p>
+
+      <div class="flex-container flex-grow-demo">
+        <div class="item item-1 grow-1">flex: 1</div>
+        <div class="item item-2 grow-2">flex: 2</div>
+        <div class="item item-3 grow-3">flex: 3</div>
+      </div>
+    </div>
+
+    <!-- =============================================
+         ADIM 8: Klasik pattern — her iki eksende ortala
+    ============================================= -->
+    <div class="section">
+      <h2>8. Klasik Pattern — Tam Ortaya Alma</h2>
+      <p class="aciklama">
+        display:flex + justify-content:center + align-items:center = hem yatay hem dikey ortalama.
+        Bu pattern en sık kullanılanlardan biridir.
+      </p>
+
+      <div class="tam-ortada">
+        <div class="kart">Merhaba, ben tam ortadayım!</div>
+      </div>
+    </div>
+
+  </body>
+</html>

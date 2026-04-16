@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS — Box Model & Display</title>
+    <style>
+      /* =============================================
+         ADIM 1: Sıfırlama — tarayıcıların kendi
+         default stilleri vardır, önce onları sıfırla
+      ============================================= */
+      * {
+        box-sizing: border-box; /* Bu neden? Aşağıda göstereceğiz */
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: sans-serif;
+        background-color: #f5f5f5;
+        padding: 32px;
+        color: #333;
+      }
+
+      h2 {
+        margin-bottom: 16px;
+        font-size: 20px;
+        border-bottom: 2px solid #333;
+        padding-bottom: 4px;
+      }
+
+      .section {
+        margin-bottom: 48px;
+      }
+
+      /* =============================================
+         ADIM 2: Box Model
+         Her HTML elementi bir kutu gibi düşünülür.
+         content > padding > border > margin
+         DevTools'da göster: element seç > computed
+      ============================================= */
+      .box-model-demo {
+        /* content genişliği */
+        width: 200px;
+        height: 100px;
+        background-color: #4a90d9;
+        color: white;
+        text-align: center;
+        line-height: 100px;
+
+        /* padding — içerik ile border arasındaki boşluk */
+        padding: 20px;
+
+        /* border */
+        border: 4px solid #2c5f8a;
+
+        /* margin — diğer elementlerle arasındaki boşluk */
+        margin: 24px;
+      }
+
+      /*
+        box-sizing: border-box OLMADAN:
+        toplam genişlik = width(200) + padding(40) + border(8) = 248px
+
+        box-sizing: border-box İLE:
+        width: 200px (padding ve border bu alana dahil)
+        → Genellikle border-box kullanmak daha kolaydır
+      */
+
+      /* Padding kısayolları */
+      .padding-demo {
+        background-color: #e8f4d4;
+        border: 2px dashed #6aaa00;
+        margin-bottom: 12px;
+      }
+
+      .padding-4-taraf    { padding: 20px; }          /* 4 taraf eşit */
+      .padding-dikey-yatay { padding: 10px 30px; }    /* üst/alt  sol/sağ */
+      .padding-4-ayri     { padding: 5px 10px 15px 20px; } /* üst sağ alt sol (saat yönü) */
+
+      /* =============================================
+         ADIM 3: Display özellikleri
+      ============================================= */
+
+      /* BLOCK: tam genişliği kaplar, alt satıra geçer */
+      .display-block {
+        display: block;
+        background-color: #ffd6cc;
+        border: 2px solid #e05a38;
+        padding: 8px;
+        margin-bottom: 8px;
+        /* width ve height verilebilir */
+      }
+
+      /* INLINE: içerik kadar yer kaplar, yan yana gelir */
+      .display-inline {
+        display: inline;
+        background-color: #d4e8ff;
+        border: 2px solid #3a7cc8;
+        padding: 4px 8px;
+        /* ⚠ width/height verilmez — etki etmez */
+        /* ⚠ margin-top/bottom etki etmez */
+      }
+
+      /* INLINE-BLOCK: yan yana gelir VE width/height verilebilir */
+      .display-inline-block {
+        display: inline-block;
+        background-color: #fff3cc;
+        border: 2px solid #f0a500;
+        padding: 8px 16px;
+        width: 150px;       /* artık çalışıyor */
+        margin: 4px;
+      }
+
+      /* NONE: elementi gizler, yer de kaplamaz */
+      .display-none {
+        display: none; /* Bu element görünmez */
+      }
+
+      /* =============================================
+         ADIM 4: Renk tanımları
+         (CSS'te renkler farklı şekillerde yazılır)
+      ============================================= */
+      .renk-isim      { background-color: tomato; }
+      .renk-hex       { background-color: #3a86ff; }
+      .renk-rgb       { background-color: rgb(100, 200, 100); }
+      .renk-rgba      { background-color: rgba(100, 100, 200, 0.5); } /* 0.5 = yarı şeffaf */
+      .renk-ornek {
+        color: white;
+        padding: 8px 12px;
+        display: inline-block;
+        margin: 4px;
+        border-radius: 4px;
+      }
+
+      /* =============================================
+         ADIM 5: Typography (metin stilleri)
+      ============================================= */
+      .typography-demo p {
+        margin-bottom: 12px;
+        padding: 8px;
+        background: white;
+        border-left: 4px solid #ccc;
+      }
+
+      .font-size-demo   { font-size: 24px; }
+      .font-weight-demo { font-weight: bold; }
+      .font-style-demo  { font-style: italic; }
+      .text-align-demo  { text-align: center; }
+      .text-color-demo  { color: #e05a38; }
+      .line-height-demo { line-height: 2; }    /* satır yüksekliği */
+      .letter-spacing   { letter-spacing: 4px; }
+
+    </style>
+  </head>
+  <body>
+
+    <!-- =============================================
+         ADIM 2: Box Model Demo
+    ============================================= -->
+    <div class="section">
+      <h2>Box Model — content / padding / border / margin</h2>
+
+      <div class="box-model-demo">
+        content
+      </div>
+
+      <!-- DevTools'da göster: -->
+      <!-- 1. Bu elementi inspect et -->
+      <!-- 2. Computed sekmesini aç -->
+      <!-- 3. Renkli kutu diyagramı görünür -->
+
+      <p style="margin: 16px 0; font-size: 14px; color: #666;">
+        👆 Bu kutuyu DevTools ile inceliyoruz.<br>
+        Computed sekmesinde Box Model diyagramını göster.
+      </p>
+
+      <div>
+        <p><strong>Padding kısayolları:</strong></p>
+        <div class="padding-demo padding-4-taraf" style="margin-bottom:8px;">
+          padding: 20px → 4 taraf 20px
+        </div>
+        <div class="padding-demo padding-dikey-yatay" style="margin-bottom:8px;">
+          padding: 10px 30px → üst/alt:10 sol/sağ:30
+        </div>
+        <div class="padding-demo padding-4-ayri">
+          padding: 5px 10px 15px 20px → üst sağ alt sol
+        </div>
+      </div>
+    </div>
+
+    <!-- =============================================
+         ADIM 3: Display Demo
+    ============================================= -->
+    <div class="section">
+      <h2>Display — block / inline / inline-block / none</h2>
+
+      <p><strong>display: block</strong> — tam genişlik, alt satıra geçer</p>
+      <div class="display-block">Block element 1</div>
+      <div class="display-block">Block element 2 (alt satıra geçti)</div>
+
+      <br>
+
+      <p><strong>display: inline</strong> — yan yana, sadece içerik kadar yer</p>
+      <span class="display-inline">Inline 1</span>
+      <span class="display-inline">Inline 2</span>
+      <span class="display-inline">Inline 3 (yan yana)</span>
+
+      <br><br>
+
+      <p><strong>display: inline-block</strong> — yan yana + width/height kontrolü</p>
+      <div class="display-inline-block">inline-block 1</div>
+      <div class="display-inline-block">inline-block 2</div>
+      <div class="display-inline-block">inline-block 3</div>
+
+      <br>
+
+      <p><strong>display: none</strong> — bu element görünmez, yer kaplamaz</p>
+      <div class="display-none">Beni göremezsin!</div>
+      <p style="color: #999; font-size: 14px;">↑ Yukarıda "display: none" olan bir element var — göremezsin ama DevTools'da görebilirsin</p>
+    </div>
+
+    <!-- =============================================
+         ADIM 4: Renk Demo
+    ============================================= -->
+    <div class="section">
+      <h2>CSS Renk Tanımları</h2>
+
+      <span class="renk-ornek renk-isim">İsim: tomato</span>
+      <span class="renk-ornek renk-hex">HEX: #3a86ff</span>
+      <span class="renk-ornek renk-rgb">RGB: rgb(100,200,100)</span>
+      <span class="renk-ornek renk-rgba">RGBA: 0.5 şeffaflık</span>
+    </div>
+
+    <!-- =============================================
+         ADIM 5: Typography Demo
+    ============================================= -->
+    <div class="section typography-demo">
+      <h2>Metin Stilleri</h2>
+
+      <p class="font-size-demo">font-size: 24px — büyük metin</p>
+      <p class="font-weight-demo">font-weight: bold — kalın metin</p>
+      <p class="font-style-demo">font-style: italic — italik metin</p>
+      <p class="text-align-demo">text-align: center — ortaya hizalı</p>
+      <p class="text-color-demo">color: #e05a38 — renkli metin</p>
+      <p class="line-height-demo">line-height: 2 — aralarında boşluk olan satırlar. Bu metin birden fazla satıra yayılırsa satırlar arasında normal'den 2 kat fazla boşluk olacak.</p>
+      <p class="letter-spacing">letter-spacing: 4px — harfler arası boşluk</p>
+    </div>
+
+  </body>
+</html>
