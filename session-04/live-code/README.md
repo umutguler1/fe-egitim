@@ -30,7 +30,7 @@ npm run dev
 | `01-useEffect.tsx` | useEffect, dependency array, cleanup, API fetch | 0–25 | `App.tsx`'e kopyala |
 | `02-conditional-list-rendering.tsx` | if/return, ternary, &&, Loading/Error/Data, map, key | 25–50 | `App.tsx`'e kopyala |
 | `03-form-handling.tsx` | Form submit, obje state, validation, onBlur | 50–75 | `App.tsx`'e kopyala |
-| `04-pratik-todo.tsx` | Pratik — Mini ToDo App (CRUD + localStorage) | 75–90 | Katılımcılar sıfırdan yazar |
+| `todo-app/` | **Pratik — Çalışan Mini ToDo App** (CRUD + localStorage) | 75–90 | `cd todo-app && npm install && npm run dev` |
 
 ---
 
@@ -81,9 +81,18 @@ npm run dev
 
 > **İpucu:** Validation'da önce boş submit'i dene → hataları göster → sonra doldur → hataların temizlendiğini göster.
 
-### 75–90 dk — `04-pratik-todo.tsx` (Pratik)
+### 75–90 dk — `todo-app/` (Pratik)
 
-Katılımcılar kendi dosyalarını sıfırdan yazar. Eğitimci bunu referans olarak kullanır.
+Katılımcılar kendi Vite projelerinde sıfırdan yazar. `todo-app/` klasörü
+**bitirilmiş referans** — tek başına çalışır halde:
+
+```bash
+cd session-04/live-code/todo-app
+npm install
+npm run dev
+```
+
+Detaylar için: `todo-app/README.md`
 
 **Temel adımlar (birlikte):**
 1. `useState<Todo[]>([])` ve `useState("")` ile state'leri tanımla

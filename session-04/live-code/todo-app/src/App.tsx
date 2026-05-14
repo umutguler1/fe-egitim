@@ -1,17 +1,14 @@
 // =============================================
-// SESSION 4 PRATİK (75–90. dakika)
-//
-// HEDEF: Katılımcılar sıfırdan yazar.
-// Bu dosya bitirilmiş referanstır.
+// SESSION 4 PRATİK — Mini ToDo Uygulaması
 //
 // Gereksinimler:
 //   - Yeni görev ekleme (input + form submit)
 //   - Boş görev eklenemez (validation)
-//   - Görev listesini render etme (map + key)
-//   - Görevi tamamlandı olarak işaretleme (checkbox + toggle)
-//   - Görevi silme (filter ile)
-//   - Kalan görev sayısını gösterme
-//   - Bonus: localStorage ile kalıcılık (useEffect)
+//   - Liste render etme (map + key)
+//   - Tamamlandı toggle (checkbox)
+//   - Görev silme (filter)
+//   - Kalan görev sayısı
+//   - localStorage ile kalıcılık (useEffect)
 // =============================================
 
 import { useState, useEffect } from "react";
@@ -22,20 +19,22 @@ interface Todo {
   completed: boolean;
 }
 
-function TodoApp() {
+function App() {
   const [todos, setTodos] = useState<Todo[]>(() => {
-    const saved = localStorage.getItem("todos");
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem("todos");
+      return saved ? (JSON.parse(saved) as Todo[]) : [];
+    } catch {
+      return [];
+    }
   });
   const [text, setText] = useState("");
   const [error, setError] = useState("");
 
-  // localStorage'a kaydet — todos değişince çalışır
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  // --- Ekleme ---
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -55,7 +54,6 @@ function TodoApp() {
     setError("");
   };
 
-  // --- Tamamlandı / geri al ---
   const toggleTodo = (id: number) => {
     setTodos(
       todos.map((todo) =>
@@ -64,12 +62,10 @@ function TodoApp() {
     );
   };
 
-  // --- Silme ---
   const deleteTodo = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  // --- Tümünü temizle ---
   const clearCompleted = () => {
     setTodos(todos.filter((todo) => !todo.completed));
   };
@@ -82,14 +78,12 @@ function TodoApp() {
       style={{
         maxWidth: 500,
         margin: "40px auto",
+        padding: "0 16px",
         fontFamily: "sans-serif",
       }}
     >
-      <h1 style={{ textAlign: "center", color: "#1e293b" }}>
-        Yapılacaklar
-      </h1>
+      <h1 style={{ textAlign: "center", color: "#1e293b" }}>Yapılacaklar</h1>
 
-      {/* --- Form --- */}
       <form
         onSubmit={handleAdd}
         style={{ display: "flex", gap: 8, marginBottom: 8 }}
@@ -128,14 +122,12 @@ function TodoApp() {
         </button>
       </form>
 
-      {/* Hata mesajı */}
       {error && (
         <p style={{ color: "#ef4444", fontSize: 14, margin: "0 0 12px" }}>
           {error}
         </p>
       )}
 
-      {/* --- Liste --- */}
       {todos.length === 0 ? (
         <p
           style={{
@@ -164,7 +156,6 @@ function TodoApp() {
                 transition: "opacity 0.2s",
               }}
             >
-              {/* Checkbox */}
               <input
                 type="checkbox"
                 checked={todo.completed}
@@ -177,7 +168,6 @@ function TodoApp() {
                 }}
               />
 
-              {/* Görev metni */}
               <span
                 style={{
                   flex: 1,
@@ -189,9 +179,9 @@ function TodoApp() {
                 {todo.text}
               </span>
 
-              {/* Sil butonu */}
               <button
                 onClick={() => deleteTodo(todo.id)}
+                title="Sil"
                 style={{
                   background: "none",
                   border: "none",
@@ -200,7 +190,6 @@ function TodoApp() {
                   fontSize: 20,
                   padding: "0 4px",
                 }}
-                title="Sil"
               >
                 ✕
               </button>
@@ -209,7 +198,6 @@ function TodoApp() {
         </ul>
       )}
 
-      {/* --- Özet --- */}
       {todos.length > 0 && (
         <div
           style={{
@@ -246,10 +234,6 @@ function TodoApp() {
       )}
     </div>
   );
-}
-
-function App() {
-  return <TodoApp />;
 }
 
 export default App;
